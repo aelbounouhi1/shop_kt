@@ -1,0 +1,39 @@
+<p-sidebar [visible]="isOpen()" [position]="'right'" [closeOnEscape]="false" [dismissible]="false" [showCloseIcon]="false">
+    <div class="cart-container">
+        <div class="cart-header flex justify-content-between align-items-center">
+            <h3 class="-my-1">Panier</h3>
+            <p-button icon="pi pi-times" (onFocus)="toggle()"  severity="danger"  [rounded]="true" [text]="true"/>
+        </div>
+        <div class="cart-body flex flex-column gap-3">
+          @for (product of products(); track product) {
+            <div class="p-3 border-round shadow-1 surface-card flex justify-content-between align-items-center">
+              <div>
+                <div class="text-base font-medium text-900">{{ product.name }}</div>
+                <div class="text-sm text-600">Quantité: {{ product.quantity }}</div>
+              </div>
+              <div class="flex align-items-center gap-3">
+                <div class="text-lg font-bold text-primary">
+                  {{ product.price | currency }}
+                </div>
+                <button
+                  type="button"
+                  pButton
+                  icon="pi pi-trash"
+                  class="p-button-rounded p-button-sm p-button-danger"
+                  (click)="removeFromCart(product)"
+                  aria-label="Supprimer"
+                ></button>
+              </div>
+            </div>
+          }
+        </div>
+          <div class="cart-footer mt-4 p-4 border-top-1 surface-border">
+            <div class="flex justify-content-between align-items-center">
+              <span class="text-lg font-semibold text-900">Total</span>
+              <span class="text-xl font-bold text-primary">
+                {{ totalPrice() | number:'1.2-2' | currency:'EUR':'symbol':'1.2-2' }}
+              </span>
+            </div>
+          </div>
+    </div>
+</p-sidebar>

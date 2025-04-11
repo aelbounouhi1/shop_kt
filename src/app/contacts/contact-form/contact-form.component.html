@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+    <div>
+        <h2 class="text-bold text-2xl text-center">Demande de contact</h2>
+        <div class="align-items-center flex flex-column ml-2 mt-5 w-12">
+            <p-floatLabel class="w-6">
+                <input class="w-12" required pInputText formControlName="email" autocomplete="off" />
+                <label for="over_label">Renseignez votre email</label>
+            </p-floatLabel>
+            <div *ngIf="email?.invalid && (email?.touched || email?.dirty)" class="text-red-500 text-sm mt-1">
+                <div *ngIf="email?.errors?.['required']">Email est obligatoire.</div>
+                <div *ngIf="email?.errors?.['email']">Merci de respecter le bon format d'un email.</div>
+            </div>
+        </div>
+        <div class="mt-2">
+            <p-editor formControlName="message" placeholder="Entrez votre message ici..." [style]="{ height: '300px' }"/>
+        </div>
+        <div *ngIf="message?.invalid && (message?.touched || message?.dirty)" class="text-red-500 text-sm mt-1">
+            <div class="text-center" *ngIf="message?.errors?.['required']">Le message est obligatoire.</div>
+            <div class="text-center" *ngIf="message?.errors?.['maxlength']">Le message doit être inférieur à 300 caractères.</div>
+        </div>
+        <p-button [disabled]="form.invalid" class="flex flex-column align-items-center mt-1" label="Envoyer" (click)="submit()" />
+    </div>
+</form>
+
+<p-toast position="bottom-center" />
